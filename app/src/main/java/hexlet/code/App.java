@@ -60,7 +60,7 @@ public final class App implements Callable<Integer> {
             Differ.generate(filepath1, filepath2);
             return 1;
         } catch (Exception e) {
-            return -1;
+            throw new Exception();
         }
     }
 }
