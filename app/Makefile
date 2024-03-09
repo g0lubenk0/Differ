@@ -30,6 +30,8 @@ lint:
 check-deps:
 	./gradlew dependencyUpdates -Drevision=release
 
+report:
+	./gradlew jacocoTestReport
 
 build-run: build run
 
