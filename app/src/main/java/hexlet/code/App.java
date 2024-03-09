@@ -56,6 +56,11 @@ public final class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        return 0;
+        try {
+            Differ.generate(filepath1, filepath2);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }
