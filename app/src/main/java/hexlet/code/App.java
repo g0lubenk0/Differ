@@ -60,7 +60,7 @@ public final class App implements Callable<Integer> {
             Differ.generate(filepath1, filepath2);
             return 1;
         } catch (Exception e) {
-            throw new Exception();
+            throw new Exception("There is no file on provided path");
         }
     }
 }
