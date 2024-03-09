@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestParser {
     private final String filepath1 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file1.json";
+            "src/test/resources/file1.json";
     private final String filepath2 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file2.json";
+            "src/test/resources/file1.json";
     private final String unexistedPath = "/home/something";
     @Test
     public void testJsonToMap() throws IOException {
