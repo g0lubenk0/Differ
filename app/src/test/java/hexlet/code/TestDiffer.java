@@ -4,14 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Arrays;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -120,8 +118,9 @@ public class TestDiffer {
     }
 
     @Test
-    public void testGetDifference() {
-        var actual = Differ.getDifference(map1, map2);
+    public void testGetDifference() throws Exception {
+        var formatName = "stylish";
+        var actual = Differ.getDifference(map1, map2, formatName);
         assertEquals(expectedDiff, actual);
     }
 
@@ -137,44 +136,44 @@ public class TestDiffer {
     }
 
     @Test
-    public void testGenerateJSON() throws IOException {
+    public void testGenerateJSON() throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-
-        Differ.generate(jsonFilepath1, jsonFilepath2);
+        var formatName = "stylish";
+        Differ.generate(jsonFilepath1, jsonFilepath2, formatName);
         String printedMessage = outputStream.toString().trim();
 
         assertEquals(expectedDiff, printedMessage);
     }
 
     @Test
-    public void testGenerateYAML() throws IOException {
+    public void testGenerateYAML() throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-
-        Differ.generate(yamlFilepath1, yamlFilepath2);
+        var formatName = "stylish";
+        Differ.generate(yamlFilepath1, yamlFilepath2, formatName);
         String printedMessage = outputStream.toString().trim();
 
         assertEquals(expectedDiff, printedMessage);
     }
 
     @Test
-    public void testGenerateUnsupportedExtensions() throws IOException {
+    public void testGenerateUnsupportedExtensions() throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-
-        Differ.generate(htmlFilepath1, htmlFilepath2);
+        var formatName = "stylish";
+        Differ.generate(htmlFilepath1, htmlFilepath2, formatName);
         String printedMessage = outputStream.toString().trim();
 
         assertEquals("Unsupported file extension: html", printedMessage);
     }
 
     @Test
-    public void testGenerateDifferentExtensions() throws IOException {
+    public void testGenerateDifferentExtensions() throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-
-        Differ.generate(jsonFilepath1, yamlFilepath1);
+        var formatName = "stylish";
+        Differ.generate(jsonFilepath1, yamlFilepath1, formatName);
         String printedMessage = outputStream.toString().trim();
 
         assertEquals("File extensions are different: json and yaml", printedMessage);
