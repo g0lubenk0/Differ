@@ -15,19 +15,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestDiffer {
     private final String jsonFilepath1 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file1.json";
+            "src/test/resources/file1.json";
     private final String jsonFilepath2 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file2.json";
+            "src/test/resources/file2.json";
 
     private final String yamlFilepath1 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file1.yaml";
+            "src/test/resources/file1.yaml";
     private final String yamlFilepath2 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file2.yaml";
+            "src/test/resources/file2.yaml";
 
     private final String htmlFilepath1 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file1.html";
+            "src/test/resources/file1.html";
     private final String htmlFilepath2 =
-            "/home/g0lubenk0/Desktop/projects/java-project-71/app/src/test/resources/file2.html";
+            "src/test/resources/file2.html";
 
     private final Map<String, Object> map1 = new HashMap<>();
     private final Map<String, Object> map2 = new HashMap<>();
