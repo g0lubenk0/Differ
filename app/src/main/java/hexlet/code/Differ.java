@@ -3,11 +3,7 @@ package hexlet.code;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Collections;
+import java.util.*;
 
 public class Differ {
     public static void generate(String filepath1, String filepath2) throws IOException {
@@ -63,23 +59,37 @@ public class Differ {
 
     public static void appendDifference(
             StringBuilder builder,
-            String key, Map<String,
-            Object> map1,
+            String key,
+            Map<String, Object> map1,
             Map<String, Object> map2
     ) {
         if (map1.containsKey(key) && map2.containsKey(key)) {
-            Object value1 = map1.get(key);
-            Object value2 = map2.get(key);
-            if (value1.equals(value2)) {
+            Object value1 = valueToString(map1.get(key));
+            Object value2 = valueToString(map2.get(key));
+            if (value1 == null && value2 == null) {
+                return;
+            } else if (value1 != null && value1.equals(value2)) {
                 builder.append("    ").append(key).append(": ").append(value1).append("\n");
             } else {
                 builder.append("  - ").append(key).append(": ").append(value1).append("\n");
                 builder.append("  + ").append(key).append(": ").append(value2).append("\n");
             }
         } else if (map1.containsKey(key) && !map2.containsKey(key)) {
-            builder.append("  - ").append(key).append(": ").append(map1.get(key)).append("\n");
+            builder.append("  - ").append(key).append(": ").append(valueToString(map1.get(key))).append("\n");
         } else {
-            builder.append("  + ").append(key).append(": ").append(map2.get(key)).append("\n");
+            builder.append("  + ").append(key).append(": ").append(valueToString(map2.get(key))).append("\n");
+        }
+    }
+
+    public static String valueToString(Object value) {
+        if (value == null) {
+            return "null";
+        } else if (value.getClass().isArray()) {
+            // Handle arrays
+            return Arrays.deepToString((Object[]) value);
+        } else {
+            // For non-array types, use toString directly
+            return value.toString();
         }
     }
 

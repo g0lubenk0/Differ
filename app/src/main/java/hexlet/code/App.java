@@ -47,7 +47,7 @@ public final class App implements Callable<Integer> {
             description = "Print version information and exit."
     )
     private boolean versionRequested = false;
-
+    
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
