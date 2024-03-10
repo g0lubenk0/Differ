@@ -3,7 +3,12 @@ package hexlet.code;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Arrays;
 
 public class Differ {
     public static void generate(String filepath1, String filepath2) throws IOException {
@@ -85,10 +90,8 @@ public class Differ {
         if (value == null) {
             return "null";
         } else if (value.getClass().isArray()) {
-            // Handle arrays
             return Arrays.deepToString((Object[]) value);
         } else {
-            // For non-array types, use toString directly
             return value.toString();
         }
     }
