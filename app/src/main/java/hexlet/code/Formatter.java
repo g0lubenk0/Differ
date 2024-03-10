@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface Formatter {
-    StringBuilder appendDifference(
-                          List<String> keyList,
-                          Map<String, Object> map1,
-                          Map<String, Object> map2);
+    StringBuilder appendDifference(List<String> keyList, Map<String, Object> map1, Map<String, Object> map2);
 
     static String valueToString(Object value) {
         if (value == null) {
@@ -23,10 +20,7 @@ public interface Formatter {
         }
     }
 
-    static StringBuilder applyFormatter(
-                                        List<String> keyList,
-                                        Map<String, Object> map1,
-                                        Map<String, Object> map2,
+    static StringBuilder applyFormatter(List<String> keyList, Map<String, Object> map1, Map<String, Object> map2,
                                         String formatName) throws Exception {
         return switch (formatName) {
             case "stylish" -> {
