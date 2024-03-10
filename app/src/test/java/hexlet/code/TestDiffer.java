@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,32 +35,86 @@ public class TestDiffer {
     private final Map<String, Object> map2 = new HashMap<>();
 
     private final String expectedDiff = """
-                {
-                  - a: 1
-                  - b: 2
-                  + b: 3
-                    c: something
-                  - d: something
-                  + d: somethingsomething
-                  + e: 10
-                }""";
+            {
+                chars1: [a, b, c]
+              - chars2: [d, e, f]
+              + chars2: false
+              - checked: false
+              + checked: true
+              - default: null
+              + default: [value1, value2]
+              - id: 45
+              + id: null
+              - key1: value1
+              + key2: value2
+                numbers1: [1, 2, 3, 4]
+              - numbers2: [2, 3, 4, 5]
+              + numbers2: [22, 33, 44, 55]
+              - numbers3: [3, 4, 5]
+              + numbers4: [4, 5, 6]
+              + obj1: {nestedKey=value, isNested=true}
+              - setting1: Some value
+              + setting1: Another value
+              - setting2: 200
+              + setting2: 300
+              - setting3: true
+              + setting3: none
+            }""";
     @BeforeEach
     public void beforeEach() {
-        map1.put("a", 1);
-        map1.put("b", 2);
-        map1.put("c", "something");
-        map1.put("d", "something");
+        map1.put("setting1", "Some value");
+        map1.put("setting2", 200);
+        map1.put("setting3", true);
+        map1.put("key1", "value1");
+        map1.put("numbers1", Arrays.asList(1, 2, 3, 4));
+        map1.put("numbers2", Arrays.asList(2, 3, 4, 5));
+        map1.put("id", 45);
+        map1.put("default", null);
+        map1.put("checked", false);
+        map1.put("numbers3", Arrays.asList(3, 4, 5));
+        map1.put("chars1", Arrays.asList("a", "b", "c"));
+        map1.put("chars2", Arrays.asList("d", "e", "f"));
 
-        map2.put("b", 3);
-        map2.put("c", "something");
-        map2.put("d", "somethingsomething");
-        map2.put("e", 10);
+        map2.put("setting1", "Another value");
+        map2.put("setting2", 300);
+        map2.put("setting3", "none");
+        map2.put("key2", "value2");
+        map2.put("numbers1", new Integer[]{1, 2, 3, 4});
+        map2.put("numbers2", new Integer[]{22, 33, 44, 55});
+        map2.put("id", null);
+        map2.put("default", new String[]{"value1", "value2"});
+        map2.put("checked", true);
+        map2.put("numbers4", new Integer[]{4, 5, 6});
+        map2.put("chars1", new String[]{"a", "b", "c"});
+        map2.put("chars2", false);
+
+        // Nested object
+        Map<String, Object> obj1 = new HashMap<>();
+        obj1.put("nestedKey", "value");
+        obj1.put("isNested", true);
+        map2.put("obj1", obj1);
     }
 
     @Test
     public void testGetAllKeys() {
         var actual = Differ.getAllKeys(map1, map2);
-        var expected = new ArrayList<>(List.of("a", "b", "c", "d", "e"));
+        List<String> keys = new ArrayList<>();
+        keys.add("chars1");
+        keys.add("chars2");
+        keys.add("checked");
+        keys.add("default");
+        keys.add("id");
+        keys.add("key1");
+        keys.add("key2");
+        keys.add("numbers1");
+        keys.add("numbers2");
+        keys.add("numbers3");
+        keys.add("numbers4");
+        keys.add("obj1");
+        keys.add("setting1");
+        keys.add("setting2");
+        keys.add("setting3");
+        var expected = new ArrayList<>(keys);
 
         assertEquals(expected, actual);
     }

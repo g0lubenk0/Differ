@@ -48,7 +48,6 @@ public final class App implements Callable<Integer> {
     )
     private boolean versionRequested = false;
 
-
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
